@@ -1,0 +1,46 @@
+输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
+
+那么我们就可以根据“后序遍历”和“二叉查找树”的特点，来判断一个序列是不是二叉查找树的后序遍历结果了： 
+假设序列为 A[0, 1, 2, ..., N-1] 
+(1) 序列的最后一个节点为根节点root = A[N -1]； 
+(2) 从序列第一个元素开始查找第一个值大于root的值的元素 A[i]； 
+(3) 如果从A[i]到root前一个节点A[N-2]的值都大于root的值，则进行下一步，否则直接返回false； 
+(4) 如果i>0,则说明二叉查找树含有左子树，那么重复步骤(1)(2)(3)判断序列A[0, 1, ..., i-1]是否为二叉查找树的后序遍历结果； 
+(5) 如果i<N-1,则说明二叉查找树含有右子树，那么重复步骤(1)(2)(3)判断序列A[i, i+1, ..., N-2]是否为二叉查找树的后序遍历结果； 
+(6) 如果步骤(4)、(5)的结果都为true，那么这个序列就是二叉查找树的后序遍历结果；否则不是。
+
+注意：空二叉树和只有根节点的二叉树也是一棵二叉查找树，所以不要忽略对空序列以及只有一个元素的序列的处理。
+
+
+
+class Solution {
+public:
+    bool helper(vector<int> que,int begin,int end){
+        if(que.empty()||begin>end)
+            return false;
+        int i=begin;
+        int root=que[end];
+        for(;i<end;i++){
+            if(que[i]>root){
+                break;
+            }
+        }
+        for(int j=i;j<end;j++){
+            if(que[j]<root)
+                return false;
+        }
+        bool left=true;
+        if(i>begin){
+            left=helper(que,begin,i-1);
+        }
+        bool right=true;
+        if(i<end-1){
+            right=helper(que,i,end-1);
+        }
+        return left&&right;
+    }
+    
+    bool VerifySquenceOfBST(vector<int> sequence) {
+        return helper(sequence,0,sequence.size()-1);
+    }
+};
