@@ -1,0 +1,50 @@
+题目描述
+输入两个链表，找出它们的第一个公共结点。
+
+思路：先算出两个链表的长度a,b。若a>b则让长的先走a-b然后再两个一起走。
+
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* FindFirstCommonNode( ListNode* pHead1, ListNode* pHead2) {
+        int l1=0,l2=0;
+        ListNode* p1=pHead1;
+        ListNode* p2=pHead2;
+        while(p1!=nullptr){
+            l1++;
+            p1=p1->next;
+        }
+        while(p2!=nullptr){
+            l2++;
+            p2=p2->next;
+        }
+        int len;
+        if(l1>=l2){
+            len=l1-l2;
+            p1=pHead1;
+            p2=pHead2;
+        }else{
+            len=l2-l1;
+            p1=pHead2;
+            p2=pHead2;
+        }
+        while(len){
+            p1=p1->next;
+            len--;
+        }
+        while(p1!=NULL&&p2!=NULL){
+            if(p1==p2)
+                break;
+            p1=p1->next;
+            p2=p2->next;
+        }
+        return p1;
+    }
+};
