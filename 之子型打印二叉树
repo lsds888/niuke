@@ -1,0 +1,56 @@
+请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，
+第二层按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以此类推。
+
+思路：使用栈
+
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    vector<vector<int> > Print(TreeNode* pRoot) {
+        vector<int> vec;
+        vector<vector<int>> res;
+        if(pRoot==NULL)
+            return res;
+        bool ltor=true;
+        stack<TreeNode*> qu1;
+        stack<TreeNode*> qu2;
+        qu1.push(pRoot);
+        while(!qu1.empty()){
+            TreeNode* p=qu1.top();
+            qu1.pop();
+            vec.push_back(p->val);
+            if(ltor){
+                if(p->left)
+                    qu2.push(p->left);
+                if(p->right)
+                    qu2.push(p->right);
+            }else{
+                if(p->right)
+                    qu2.push(p->right);
+                if(p->left)
+                    qu2.push(p->left);
+            }
+            if(qu1.empty()){
+                res.push_back(vec);
+                vec.clear();
+                ltor=!ltor;
+                swap(qu1,qu2);
+            }
+        }
+        return res;
+    }
+};
+
+
+
+
+
