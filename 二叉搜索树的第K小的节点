@@ -1,0 +1,42 @@
+给定一棵二叉搜索树，请找出其中的第k小的结点。例如， （5，3，7，2，4，6，8）    中，按结点数值大小顺序第三小结点的值为4。
+
+思路：中序遍历到第K个时返回
+
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    TreeNode* KthNode(TreeNode* pRoot, int k)
+    {
+        vector<TreeNode*> vec;
+        stack<TreeNode*> sta;
+        TreeNode* p=pRoot;
+        while(!sta.empty()||p){
+            while(p){
+                sta.push(p);
+                p=p->left;
+            }
+            if(!sta.empty()){
+                p=sta.top();
+                sta.pop();
+                vec.push_back(p);
+                if(vec.size()==k)
+                    return p;
+                p=p->right;
+            }
+        }
+        return NULL;
+    }
+};
+
+
+
+
