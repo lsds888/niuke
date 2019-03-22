@@ -1,0 +1,48 @@
+给一个链表，若其中包含环，请找出该链表的环的入口结点，否则，输出null。
+
+思路：
+快慢指针找交点则该链表一定为有环的，然后令其中一个指针从头开始，然后两指针以相同的速度往下走，则交点则为环的入口位置。
+
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) :
+        val(x), next(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    ListNode* EntryNodeOfLoop(ListNode* pHead)
+    {
+        if(pHead==NULL) return NULL;
+        ListNode* run=pHead;
+        ListNode* slow=pHead;
+        bool iscircle=false;
+        while(run&&run->next&&run->next->next){
+            slow=slow->next;
+            run=run->next->next;
+            if(slow==run){
+                iscircle=true;
+                break;
+            }
+
+        }
+        if(!iscircle)
+            return NULL;
+        slow=pHead;
+        while(slow!=run){
+            run=run->next;
+            slow=slow->next;
+        }
+        return run;
+    }
+};
+
+
+
+
+
+
+
