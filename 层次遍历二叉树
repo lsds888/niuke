@@ -1,0 +1,50 @@
+题目描述
+从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。、
+
+使用双向队列
+
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    vector<vector<int> > Print(TreeNode* pRoot) {
+        vector<int> vec;
+        vector<vector<int>> res;
+        if(pRoot==NULL)
+            return res;
+        queue<TreeNode*> sta1;
+        queue<TreeNode*> sta2;
+        sta1.push(pRoot);
+        while(!sta1.empty()){
+            TreeNode* p=sta1.front();
+            sta1.pop();
+            vec.push_back(p->val);
+            if(p->left){
+                sta2.push(p->left);
+            }
+            if(p->right){
+                sta2.push(p->right);
+            }
+            if(sta1.empty()){
+                res.push_back(vec);
+                vec.clear();
+                swap(sta1,sta2);
+            }
+        }
+        return res;
+    }
+};
+
+
+
+
+
+
