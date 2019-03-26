@@ -1,0 +1,64 @@
+输入一个链表，反转链表后，输出新链表的表头。
+
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+
+
+方法一：使用栈
+    ListNode* reverse(stack<ListNode*> data)
+    {
+        ListNode* ans=data.top();
+        data.pop();
+        if(data.empty())
+        {
+            ans->next=NULL;
+            return ans;
+        }
+        ans->next=reverse(data);
+        return ans;
+    }
+    ListNode* ReverseList(ListNode* pHead) {
+        if(pHead==NULL)
+            return NULL;
+        stack<ListNode*> sta;
+        ListNode* p=pHead;
+        while(p!=NULL){
+            sta.push(p);
+            p=p->next;
+        }
+        return reverse(sta);
+    }
+    
+    
+    
+ 方法二：直接反转
+    ListNode* ReverseList(ListNode* pHead) {
+        if(pHead==NULL){
+            return NULL;
+        }
+        ListNode* pre=NULL;
+        ListNode* next=NULL;
+        while(pHead){
+            next=pHead->next;
+            pHead->next=pre;
+            pre=pHead;
+            pHead=next;
+        }
+        return pre;
+    }
+};
+
+
+
+
+
+
+
