@@ -41,24 +41,19 @@ public:
     
  方法二：直接反转
     ListNode* ReverseList(ListNode* pHead) {
-        if(pHead==NULL){
+        if(pHead==NULL)
             return NULL;
+        ListNode* dummy=new ListNode(-1);
+        dummy->next=pHead;
+        ListNode* prev=dummy->next;
+        ListNode* pcur=prev->next;
+        while(pcur){
+            prev->next=pcur->next;
+            pcur->next=dummy->next;
+            dummy->next=pcur;
+            pcur=prev->next;
         }
-        ListNode* pre=NULL;
-        ListNode* next=NULL;
-        while(pHead){
-            next=pHead->next;
-            pHead->next=pre;
-            pre=pHead;
-            pHead=next;
-        }
-        return pre;
+        return dummy->next;
     }
 };
-
-
-
-
-
-
-
+https://www.cnblogs.com/byrhuangqiang/p/4311336.html
