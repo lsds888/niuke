@@ -56,4 +56,15 @@ public:
         return dummy->next;
     }
 };
-https://www.cnblogs.com/byrhuangqiang/p/4311336.html
+
+方法三：递归
+ListNode* ReverseList(ListNode* pHead){
+        if(pHead==NULL||pHead->next==NULL){
+            return pHead;
+        }else{
+            ListNode* newNode=ReverseList(pHead->next);
+            pHead->next->next=pHead;
+            pHead->next=NULL;
+            return newNode;
+        }
+    }
