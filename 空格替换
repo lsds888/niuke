@@ -4,23 +4,22 @@
 class Solution {
 public:
 	void replaceSpace(char *str,int length) {
-        if(str==NULL||length==0)
+        if(length==0){
             return;
-        int balnk=0;
-        int l=0;
-        for(int i=0;str[i]!='\0';i++){
-            l++;
-            if(str[i]==' ')
-                balnk++;
         }
-        int newlength=l+2*balnk;
-        while(l>=0&&newlength>=l){
-            if(str[l]==' '){
-                str[newlength--]='0';
-                str[newlength--]='2';
-                str[newlength--]='%';
+        int len=0;
+        for(int i=0;i<length;i++){
+            if(str[i]==' ')
+                len++;
+        }
+        int newlen=length+2*len;
+        while(length>=0&&newlen>=length){
+            if(str[length]==' '){
+                str[newlen--]='0';
+                str[newlen--]='2';
+                str[newlen--]='%';
             }else{
-                str[newlength--]=str[l--];
+                str[newlen--]=str[length--];
             }
         }
 	}
