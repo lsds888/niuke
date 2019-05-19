@@ -21,29 +21,34 @@ public:
         if(pRoot==NULL)
             return res;
         bool ltor=true;
-        stack<TreeNode*> qu1;
-        stack<TreeNode*> qu2;
-        qu1.push(pRoot);
-        while(!qu1.empty()){
-            TreeNode* p=qu1.top();
-            qu1.pop();
+        stack<TreeNode*> sta1;
+        stack<TreeNode*> sta2;
+        sta1.push(pRoot);
+        TreeNode* p=nullptr;
+        while(!sta1.empty()){
+            p=sta1.top();
+            sta1.pop();
             vec.push_back(p->val);
             if(ltor){
-                if(p->left)
-                    qu2.push(p->left);
-                if(p->right)
-                    qu2.push(p->right);
+                if(p->left){
+                    sta2.push(p->left);
+                }
+                if(p->right){
+                    sta2.push(p->right);
+                }
             }else{
-                if(p->right)
-                    qu2.push(p->right);
-                if(p->left)
-                    qu2.push(p->left);
+                if(p->right){
+                    sta2.push(p->right);
+                }
+                if(p->left){
+                    sta2.push(p->left);
+                }
             }
-            if(qu1.empty()){
+            if(sta1.empty()){
                 res.push_back(vec);
-                vec.clear();
+                swap(sta1,sta2);
                 ltor=!ltor;
-                swap(qu1,qu2);
+                vec.clear();
             }
         }
         return res;
