@@ -5,7 +5,7 @@ class Solution {
 public:
     TreeNode* KthNode(TreeNode* pRoot, int k)
     {
-        vector<TreeNode*> vec;
+        int num=0;
         stack<TreeNode*> sta;
         TreeNode* p=pRoot;
         while(!sta.empty()||p){
@@ -16,13 +16,13 @@ public:
             if(!sta.empty()){
                 p=sta.top();
                 sta.pop();
-                vec.push_back(p);
-                if(vec.size()==k)
+                num++;
+                if(num==k)
                     return p;
                 p=p->right;
             }
         }
-        return NULL;
+        return nullptr;
     }
 };
 
