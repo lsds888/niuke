@@ -18,33 +18,29 @@ public:
     vector<vector<int> > Print(TreeNode* pRoot) {
         vector<int> vec;
         vector<vector<int>> res;
-        if(pRoot==NULL)
+        if(pRoot==nullptr){
             return res;
-        queue<TreeNode*> sta1;
-        queue<TreeNode*> sta2;
-        sta1.push(pRoot);
-        while(!sta1.empty()){
-            TreeNode* p=sta1.front();
-            sta1.pop();
+        }
+        queue<TreeNode*> qu1;
+        queue<TreeNode*> qu2;
+        TreeNode* p=nullptr;
+        qu1.push(pRoot);
+        while(!qu1.empty()){
+            p=qu1.front();
+            qu1.pop();
             vec.push_back(p->val);
             if(p->left){
-                sta2.push(p->left);
+                qu2.push(p->left);
             }
             if(p->right){
-                sta2.push(p->right);
+                qu2.push(p->right);
             }
-            if(sta1.empty()){
+            if(qu1.empty()){
                 res.push_back(vec);
+                swap(qu1,qu2);
                 vec.clear();
-                swap(sta1,sta2);
             }
         }
         return res;
     }
 };
-
-
-
-
-
-
