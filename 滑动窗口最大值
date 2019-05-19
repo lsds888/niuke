@@ -12,7 +12,7 @@ public:
     vector<int> maxInWindows(const vector<int>& num, unsigned int size)
     {
         vector<int> res;
-        if(num.size()<size||size<1)
+        if(num.size()<size||size<1||size==0)
             return res;
         int m=0;
         int len=num.size();
