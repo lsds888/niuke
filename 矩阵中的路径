@@ -5,9 +5,10 @@
 
 class Solution {
 public:
-    bool helper(char* matrix,int rows,int cols,char* str,int i,int j,int k,int* arr){
-        if(i<0||i>=rows||j<0||j>=cols||matrix[i*cols+j]!=str[k]||arr[i*cols+j]==1)
+    bool helper(char* matrix,int rows,int cols,char* str,int i,int j,int k,vector<int> &arr){
+        if(i<0||i>=rows||j<0||j>=cols||matrix[i*cols+j]!=str[k]||arr[i*cols+j]==1){
             return false;
+        }
         if(k==(int)strlen(str)-1)
             return true;
         arr[i*cols+j]=1;
@@ -23,14 +24,12 @@ public:
     
     bool hasPath(char* matrix, int rows, int cols, char* str)
     {
-        int *arr=new int[rows*cols];
-        for(int i=0;i<rows*cols;i++){
-            arr[i]=0;
-        }
+        vector<int> arr(rows*cols,0);
         for(int i=0;i<rows;i++){
             for(int j=0;j<cols;j++){
-                if(helper(matrix,rows,cols,str,i,j,0,arr))
+                if(helper(matrix,rows,cols,str,i,j,0,arr)){
                     return true;
+                }
             }
         }
         return false;
