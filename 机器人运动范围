@@ -4,18 +4,19 @@
 
 class Solution {
 public:
-    int getsum(int n){
+    int getsum(int i){
         int sum=0;
-        while(n){
-            sum+=n%10;
-            n/=10;
+        while(i){
+            sum+=i%10;
+            i/=10;
         }
         return sum;
     }
     
-    int moving(int th,int rows,int cols,int i,int j,int* arr){
-        if(i<0||i>=rows||j<0||j>=cols||getsum(i)+getsum(j)>th||arr[i*cols+j]==1)
+    int moving(int th,int rows,int cols,int i,int j,vector<int> &arr){
+        if(i<0||i>=rows||j<0||j>=cols||getsum(i)+getsum(j)>th||arr[i*cols+j]==1){
             return 0;
+        }
         arr[i*cols+j]=1;
         return 1+moving(th,rows,cols,i-1,j,arr)+
                 moving(th,rows,cols,i+1,j,arr)+
@@ -25,11 +26,8 @@ public:
     
     int movingCount(int threshold, int rows, int cols)
     {
-        int *arr=new int[rows*cols]; 
-        for(int i=0;i<rows*cols;i++){
-            arr[i]=0;
-        }
-        int i=moving(threshold,rows,cols,0,0,arr);
-        return i;
+        vector<int> arr(rows*cols,0);
+        int j=moving(threshold,rows,cols,0,0,arr);
+        return j;
     }
 };
